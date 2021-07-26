@@ -3,11 +3,6 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 const Nav = (props) => {
 
-    // const { name, setting } = this.props;
-    // const setName=()=>{props.name=''};
-    // console.log('YOOOOOOOOO',props);
-    // const[name,setName]=useState();
-
     const logout=async()=>{
         await fetch('https://cmpbackend.herokuapp.com/api/auth/logout/',{
             method:'POST',

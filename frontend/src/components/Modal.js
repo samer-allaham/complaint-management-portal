@@ -37,8 +37,8 @@ class CustomModal extends Component {
     const { toggle, onSave } = this.props;
 
     let roleBased;
-    console.log('modaaaaaal',this.state.activeItem);
 
+    // showing content based on the user status if admin or customer
     if (this.state.status===2) {
       roleBased=(    <Modal isOpen={true} toggle={toggle}>
         <ModalHeader toggle={toggle}> Ticket Item  </ModalHeader>
@@ -125,18 +125,6 @@ class CustomModal extends Component {
               />
             </FormGroup>
 
-            {/* 3 completed label */}
-            {/* <FormGroup check>
-              <Label for="completed">
-                <Input
-                  type="checkbox"
-                  name="completed"
-                  checked={this.state.activeItem.completed}
-                  onChange={this.handleChange}
-                />
-                Completed
-              </Label>
-            </FormGroup> */}
           </Form>
         </ModalBody>
         {/* create a modal footer */}

@@ -49,10 +49,12 @@ const Login = (props) => {
             }
         });
 
+
+    // Another call to get the user data because the login call returns the token
+
     axios
     .get('https://cmpbackend.herokuapp.com/api/auth/user/',{withCredentials:true})
     .then(res=>{
-      console.log(res.data);
       if (res.data.name) {
        
      
@@ -66,7 +68,6 @@ const Login = (props) => {
       }
     })
     .catch(error=>{
-    //   alert("wrong email or password, try again ")
       console.log(error);
     })
 
