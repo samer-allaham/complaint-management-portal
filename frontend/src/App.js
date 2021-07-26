@@ -68,7 +68,7 @@ class App extends React.Component {
   checkLoginStatus() {
 
     axios
-      .get('http://127.0.0.1:8000/api/auth/user/', { withCredentials: true })
+      .get('https://cmpbackend.herokuapp.com/api/auth/user/', { withCredentials: true })
       .then(res => {
         console.log(res);
         if (res.data.name) {
@@ -109,7 +109,7 @@ class App extends React.Component {
 
   refreshList = () => {
     axios
-      .get('http://127.0.0.1:8000/api/tasks/')
+      .get('https://cmpbackend.herokuapp.com/api/tasks/')
       .then(res => {this.setState({ taskList: res.data })
     console.log(res);})
 
@@ -244,18 +244,18 @@ class App extends React.Component {
     console.log("inside handle submitt",item);
     if (item.id) {
       axios
-        .put(`http://127.0.0.1:8000/api/tasks/${item.id}/`, item)
+        .put(`https://cmpbackend.herokuapp.com/api/tasks/${item.id}/`, item)
         .then(res => this.refreshList())
       return;
     }
     axios
-      .post("http://127.0.0.1:8000/api/tasks/", item)
+      .post("https://cmpbackend.herokuapp.com/api/tasks/", item)
       .then(res => this.refreshList())
   }
 
   handleDelete = item => {
     axios
-      .delete(`http://127.0.0.1:8000/api/tasks/${item.id}/`)
+      .delete(`https://cmpbackend.herokuapp.com/api/tasks/${item.id}/`)
       .then(res => this.refreshList())
   }
 

@@ -9,7 +9,7 @@ const Nav = (props) => {
     // const[name,setName]=useState();
 
     const logout=async()=>{
-        await fetch('http://127.0.0.1:8000/api/auth/logout/',{
+        await fetch('https://cmpbackend.herokuapp.com/api/auth/logout/',{
             method:'POST',
             headers:{'Content-Type':'application/json'},
             SameSite:'Strict',
