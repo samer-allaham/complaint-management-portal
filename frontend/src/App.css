@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  
 }
 
 .App-logo {
@@ -24,10 +25,10 @@
   color: white;
 }
 
-.content {
+/* .content {
   width:100%;
   margin-left: 0;
-}
+} */
 .App-link {
   color: #61dafb;
 }
@@ -56,9 +57,13 @@ body {
 } */
 
 .form-signin {
-  width: 100%;
+  width: 40%;
 
-  padding: 15px;
+  padding: 3%;
+
+  margin-left: 30%;
+
+
 
 }
 
@@ -71,13 +76,37 @@ body {
 }
 
 .form-signin input[type="email"] {
-  margin-bottom: -1px;
+  margin-bottom: 1%;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
 
 .form-signin input[type="password"] {
-  margin-bottom: 10px;
+  margin-bottom: 1%;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+}
+
+.form-signin input {
+  margin-bottom: 1%;
+  margin-top: 1%;
+
+}
+.form-signin select {
+  margin-bottom: 1%;
+  margin-top: 1%;
+
+}
+
+.home{
+  font-weight: 900;
+  font-size: larger;
+  margin-top: 5%;
+}
+
+.heading{
+  font-size: large;
+}
+.navbar{
+  width: 100%;
 }

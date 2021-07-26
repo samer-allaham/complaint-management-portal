@@ -4,7 +4,7 @@ const Home = (props) => {
 
     return (
 
-        <div >         
+        <div className="home">         
              {props.name ? '': `you are not logged in`}
         </div>
     );

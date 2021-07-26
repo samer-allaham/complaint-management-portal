@@ -3,57 +3,79 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 const Nav = (props) => {
 
-    const logout=async()=>{
-        await fetch('https://cmpbackend.herokuapp.com/api/auth/logout/',{
-            method:'POST',
-            headers:{'Content-Type':'application/json'},
-            SameSite:'Strict',
-            credentials:'include',
+    // logout and delete token from cookies
+
+    const logout = async () => {
+        await fetch('https://cmpbackend.herokuapp.com/api/auth/logout/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            SameSite: 'Strict',
+            credentials: 'include',
         });
         props.onNameChange('')
     }
 
+    // change the view based if the user is logged in or not
     let menu;
     if (props.name === '') {
-        menu = (<ul className="navbar-nav me-auto mb-2 mb-md-0">
-            <li className="nav-item">
-                <Link className="nav-link active" aria-current="page" to="/login">Login</Link>
-            </li>
-            <li className="nav-item">
-                <Link className="nav-link active" aria-current="page" to="/register">Register</Link>
-            </li>
+        menu = (
 
-        </ul>)
-    }else{
 
-        menu = (<ul className="navbar-nav me-auto mb-2 mb-md-0">
-            <li className="nav-item">
-           
-                <Link className="nav-link active" aria-current="page" to="/login" onClick={logout}>Logout</Link>
-                
-                <span className="nav-link active">
-                Hi there {props.name}
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <Link class="nav-link active" aria-current="page" to="/">Home</Link>
+                    </li>
+                    <li class="nav-item">
+                        <Link className="nav-link active" aria-current="page" to="/login">Login</Link>
+                    </li>
+                    <li class="nav-item">
+                        <Link className="nav-link active" aria-current="page" to="/register">Register</Link>
+                    </li>
+                </ul>
+            </div>
+
+        )
+    } else {
+
+        menu = (
+
+
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <Link className="nav-link active" aria-current="page" to="/login" onClick={logout}>Logout</Link>
+                    </li>
+                </ul>
+                <span class="navbar-text text-dark h5">
+                    Hi there {props.name}
                 </span>
-            </li>
+            </div>
 
-
-        </ul>)
+        )
 
     }
     return (
         <div>
-            <nav className="navbar navbar-expand-md navbar-dark bg-dark mb-4">
-                <div className="container-fluid">
-                    <Link className="navbar-brand" to="/">Home</Link>
 
-                    <div className="collapse navbar-collapse" id="navbarCollapse">
-
-                        {menu}
-
-
-                    </div>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+                    <Link class="navbar-brand" to="/">Complaint Manegment system</Link>
+                    <button
+                        class="navbar-toggler"
+                        type="button"
+                        data-mdb-toggle="collapse"
+                        data-mdb-target="#navbarText"
+                        aria-controls="navbarText"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation"
+                    >
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    {menu}
                 </div>
             </nav>
+
 
         </div>
     );

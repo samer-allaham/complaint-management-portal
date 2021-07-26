@@ -86,7 +86,7 @@ class App extends React.Component {
       .get('https://cmpbackend.herokuapp.com/api/tasks/')
       .then(res => {
         this.setState({ taskList: res.data })
-        
+
       })
 
       .catch(err => console.log(err))
@@ -163,7 +163,7 @@ class App extends React.Component {
         user: this.state.userId
       };
       let tickets = newItems
-      
+
 
       let finalTickets;
 
@@ -260,7 +260,7 @@ class App extends React.Component {
     this.setState({ status: newStatus });
   }
 
-    // a call back function that is passed for the Login to change the state of the id which from it we will change what appears on the screen for each type of user
+  // a call back function that is passed for the Login to change the state of the id which from it we will change what appears on the screen for each type of user
   onCreateChange = (newStatus) => {
 
     this.setState({ userId: newStatus });
@@ -278,7 +278,6 @@ class App extends React.Component {
     } else {
 
       // show content based if the user is admin or not
-
       let roleBased;
 
 
@@ -291,11 +290,8 @@ class App extends React.Component {
       }
 
       menu = (
-        <main className="content p-3 mb-2 bg-dark">
-          <h1 className="text-white text-uppercase text-center my-4">
-            Complaint Manegment system
+        <div className="content p-3 mb-2 bg-dark">
 
-          </h1>
 
           <div className="row">
             <div className="col-md-6 col-sma-10 mx-auto  p-0">
@@ -314,10 +310,6 @@ class App extends React.Component {
             </div>
 
           </div>
-          <footer className="my-5 mb-3 bg-light text-dark text-center">
-            &copy; 2021 Copyrights
-
-          </footer>
 
           {this.state.modal ? (
             <Modal
@@ -328,13 +320,14 @@ class App extends React.Component {
             />
           ) : null}
 
-        </main>
+        </div>
       )
 
     }
 
 
 
+    // redirect to home page if the user is logged in and tries to go to /login again
     let loginView;
 
 
@@ -347,6 +340,7 @@ class App extends React.Component {
 
     }
 
+    // redirect to home page if the user is logged in and tries to go to /register again
     let registerView;
 
 
@@ -369,22 +363,38 @@ class App extends React.Component {
 
     return (
       <div className="App">
+        <div  className="d-flex flex-column min-vh-100">
+          
+
+
         <BrowserRouter>
           <Nav name={userName} onNameChange={this.onChange}></Nav>
 
 
 
-          <main className="form-signin">
+          <main >
             {menu}
 
-            {loginView}
+            <div className="form-signin">
 
-            {registerView}
+              {loginView}
+
+              {registerView}
+
+            </div >
+
+
 
 
 
           </main>
         </BrowserRouter>
+        <footer className="footer mt-auto py-3 bg-dark text-white">
+          &copy; 2021 Copyrights
+
+        </footer>
+
+        </div>
       </div>
 
     )
