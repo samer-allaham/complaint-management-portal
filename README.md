@@ -2,7 +2,7 @@
 
 
 ## Overview  
-A complaint management portal that gives the abilityt for users to register, login, send a complaint and check the status of the complaint Using React and django
+A complaint management portal that gives the ability for users to register, login, send a complaint and check the status of the complaint Using React and django
 ---
 
 
