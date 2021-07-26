@@ -13,7 +13,7 @@ const Login = (props) => {
         e.preventDefault()
 
 
-        const res = await fetch('http://127.0.0.1:8000/api/auth/login/', {
+        const res = await fetch('https://cmpbackend.herokuapp.com/api/auth/login/', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             SameSite: 'Strict',
@@ -49,10 +49,12 @@ const Login = (props) => {
             }
         });
 
+
+    // Another call to get the user data because the login call returns the token
+
     axios
-    .get('http://127.0.0.1:8000/api/auth/user/',{withCredentials:true})
+    .get('https://cmpbackend.herokuapp.com/api/auth/user/',{withCredentials:true})
     .then(res=>{
-      console.log(res.data);
       if (res.data.name) {
        
      
@@ -66,7 +68,6 @@ const Login = (props) => {
       }
     })
     .catch(error=>{
-    //   alert("wrong email or password, try again ")
       console.log(error);
     })
 

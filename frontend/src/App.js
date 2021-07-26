@@ -11,33 +11,7 @@ import Modal from './components/Modal';
 import { BrowserRouter, Route } from
   'react-router-dom'
 
-// import React, { useEffect,useState  } from 'react'
 
-
-// const tasks = [
-//   {
-//     id: 1,
-//     title: "test1",
-//     description: "some lorem epssum :)",
-//     completed: false
-
-//   },
-//   {
-//     id: 2,
-//     title: "test2",
-//     description: "some lorem epssum :)",
-//     completed: true
-//   },
-
-//   {
-//     id: 3,
-//     title: "test3",
-//     description: "some lorem epssum :)",
-//     completed: false
-
-//   }
-
-// ]
 
 
 class App extends React.Component {
@@ -50,37 +24,36 @@ class App extends React.Component {
     this.state = {
       loggedIn: false,
       user: '',
-      status:0,
-      userId:1,
+      status: 0,
+      userId: 1,
       viewCompleted: false,
       activeItem: {
         title: "",
         description: "",
         completed: false,
-        userCreating:1,
+        userCreating: 1,
       },
-      
+
 
       taskList: []
     };
   }
 
+  // checking if the user is logged in to change the state
   checkLoginStatus() {
 
     axios
-      .get('http://127.0.0.1:8000/api/auth/user/', { withCredentials: true })
+      .get('https://cmpbackend.herokuapp.com/api/auth/user/', { withCredentials: true })
       .then(res => {
-        console.log(res);
+
         if (res.data.name) {
           this.setState({
             loggedIn: true,
             user: res.data.name,
-            status:res.data.status,
-            userId:res.data.id
+            status: res.data.status,
+            userId: res.data.id
           })
-          console.log(this.state);
-          // console.log(res.data.status);
-          console.log(this.state.status);
+
 
         } else if (!res.name) {
           this.setState({
@@ -107,17 +80,21 @@ class App extends React.Component {
 
 
 
+  // refreshing the list of tasks
   refreshList = () => {
     axios
-      .get('http://127.0.0.1:8000/api/tasks/')
-      .then(res => {this.setState({ taskList: res.data })
-    console.log(res);})
+      .get('https://cmpbackend.herokuapp.com/api/tasks/')
+      .then(res => {
+        this.setState({ taskList: res.data })
+        
+      })
 
       .catch(err => console.log(err))
   }
 
 
 
+  // will set the viewCompleted based on the argument
   displayCompleted = status => {
     if (status) {
       return this.setState({ viewCompleted: true })
@@ -128,6 +105,7 @@ class App extends React.Component {
 
 
 
+  // making a className based on the state of viewCompleted and rendering the two spans
   renderTabList = () => {
     return (
       <div className="my-5 tab-list">
@@ -152,13 +130,11 @@ class App extends React.Component {
       item => item.completed === viewCompleted
     );
 
-    console.log('liiiiiist',this.state.taskList);
-    console.log('liiiiiist',newItems);
-
     let roleBased;
 
-    if (this.state.status===2) {
-      roleBased=(newItems.map(item => (
+    // showing the content based on the status of the user 2 is Admin 1 is Customer
+    if (this.state.status === 2) {
+      roleBased = (newItems.map(item => (
         <li
           className="list-group-item d-flex justify-content-between align-items-center"
           key={item.id}
@@ -167,7 +143,7 @@ class App extends React.Component {
             title={item.description}>
             {item.title}
           </span>
-  
+
           <span>
             <button onClick={() => this.editItem(item)} className="btn btn-info mr-2">
               Edit
@@ -176,54 +152,51 @@ class App extends React.Component {
               Delete
             </button>
           </span>
-  
+
         </li>
-  
+
       )))
-      
-    }else{
+
+    } else {
+      // filtering the tickets to only show the tickets related to the logged in user
       let filter = {
         user: this.state.userId
       };
       let tickets = newItems
-      console.log('new items',tickets);
       
+
       let finalTickets;
-      
-      finalTickets= tickets.filter(function(item) {
+
+      finalTickets = tickets.filter(function (item) {
         for (let key in filter) {
-          console.log(key,filter);
           if (item[key] === undefined || item[key] != filter[key])
             return false;
         }
         return true;
       });
 
-      console.log('finaaaaaaaal',finalTickets);
-      roleBased=(
-        
+      // for the customer we wont give him the delete button
+      roleBased = (
+
         finalTickets.map(item => (
-        <li
-          className="list-group-item d-flex justify-content-between align-items-center"
-          key={item.id}
-        >
-          <span className={`todo-title mr-2 ${this.state.viewCompleted ? "completed-todo" : ""}`}
-            title={item.description}>
-            {item.title}
-          </span>
-  
-          <span>
-            <button onClick={() => this.editItem(item)} className="btn btn-info mr-2">
-              Edit
-            </button>
-            {/* <button onClick={() => this.handleDelete(item)} className="btn btn-danger mr-2">
-              Delete
-            </button> */}
-          </span>
-  
-        </li>
-  
-      )))
+          <li
+            className="list-group-item d-flex justify-content-between align-items-center"
+            key={item.id}
+          >
+            <span className={`todo-title mr-2 ${this.state.viewCompleted ? "completed-todo" : ""}`}
+              title={item.description}>
+              {item.title}
+            </span>
+
+            <span>
+              <button onClick={() => this.editItem(item)} className="btn btn-info mr-2">
+                Edit
+              </button>
+            </span>
+
+          </li>
+
+        )))
     }
 
     return roleBased
@@ -238,73 +211,83 @@ class App extends React.Component {
     this.setState({ modal: !this.state.modal })
   }
 
+  // submitting a new ticket or task
   handleSubmit = item => {
     this.toggle()
-    item.userCreating=this.state.userId
-    console.log("inside handle submitt",item);
+    item.userCreating = this.state.userId
+    // if it exists update it
     if (item.id) {
       axios
-        .put(`http://127.0.0.1:8000/api/tasks/${item.id}/`, item)
+        .put(`https://cmpbackend.herokuapp.com/api/tasks/${item.id}/`, item)
         .then(res => this.refreshList())
       return;
     }
+    // if not create a new one
     axios
-      .post("http://127.0.0.1:8000/api/tasks/", item)
+      .post("https://cmpbackend.herokuapp.com/api/tasks/", item)
       .then(res => this.refreshList())
   }
 
+  // deleteing a ticket or task
   handleDelete = item => {
     axios
-      .delete(`http://127.0.0.1:8000/api/tasks/${item.id}/`)
+      .delete(`https://cmpbackend.herokuapp.com/api/tasks/${item.id}/`)
       .then(res => this.refreshList())
   }
 
+  // creating a new ticket or task
   createItem = () => {
-    const item = { title: "", modal: !this.state.modal ,user:this.state.userId}
+    const item = { title: "", modal: !this.state.modal, user: this.state.userId }
 
     this.setState({ activeItem: item, modal: !this.state.modal, })
-    
-    console.log('inside create',item);
+
   }
 
+  // editing a ticket
   editItem = item => {
     this.setState({ activeItem: item, modal: !this.state.modal })
   }
 
+  // a call back function that is passed for the Login and the Nav to change the state of the user name
   onChange = (newName) => {
 
     this.setState({ user: newName });
   }
 
+  // a call back function that is passed for the Login to change the state of the role
   onAnotherChange = (newStatus) => {
 
     this.setState({ status: newStatus });
   }
+
+    // a call back function that is passed for the Login to change the state of the id which from it we will change what appears on the screen for each type of user
   onCreateChange = (newStatus) => {
 
     this.setState({ userId: newStatus });
-    console.log('iddddddddddddddd',this.state.userId);
   }
 
 
   render() {
-    const test = this.state.user
-    console.log('tessssst', test);
+    const userName = this.state.user
 
 
+    // show content based if the user is logged in or not
     let menu;
     if (this.state.user === '') {
-      menu = (<Route path="/" exact component={() => <Home name={test} />} />)
+      menu = (<Route path="/" exact component={() => <Home name={userName} />} />)
     } else {
+
+      // show content based if the user is admin or not
 
       let roleBased;
 
-      if (this.state.status===1) {
-        roleBased=(<button onClick={this.createItem} className="btn btn-primary">
-        Add Ticket
-      </button>)
-      }else if(this.state.status===2){
-        roleBased=( <h3>Dashboard</h3>)
+
+      if (this.state.status === 1) {
+        roleBased = (<button onClick={this.createItem} className="btn btn-primary">
+          Add Ticket
+        </button>)
+      } else if (this.state.status === 2) {
+        roleBased = (<h3>Dashboard</h3>)
       }
 
       menu = (
@@ -318,9 +301,6 @@ class App extends React.Component {
             <div className="col-md-6 col-sma-10 mx-auto  p-0">
               <div className="card p-3">
                 <div>
-                  {/* <button onClick={this.createItem} className="btn btn-primary">
-                    Add Ticket
-                  </button> */}
                   {roleBased}
                 </div>
                 {this.renderTabList()}
@@ -359,10 +339,10 @@ class App extends React.Component {
 
 
     if (this.state.user === '') {
-      loginView = (<Route path="/login" component={() => <Login name={test} onNameChange={this.onChange} onIdChange={this.onCreateChange} onRoleChange={this.onAnotherChange} />} />)
+      loginView = (<Route path="/login" component={() => <Login name={userName} onNameChange={this.onChange} onIdChange={this.onCreateChange} onRoleChange={this.onAnotherChange} />} />)
     } else {
 
-      loginView = (<Route path="/" exact component={() => <Home name={test} />} />
+      loginView = (<Route path="/" exact component={() => <Home name={userName} />} />
       )
 
     }
@@ -371,10 +351,10 @@ class App extends React.Component {
 
 
     if (this.state.user === '') {
-      registerView = (  <Route path="/register" component={Register} />)
+      registerView = (<Route path="/register" component={Register} />)
     } else {
 
-      registerView = (<Route path="/" exact component={() => <Home name={test} />} />
+      registerView = (<Route path="/" exact component={() => <Home name={userName} />} />
       )
 
     }
@@ -390,25 +370,16 @@ class App extends React.Component {
     return (
       <div className="App">
         <BrowserRouter>
-          <Nav name={test} onNameChange={this.onChange}></Nav>
+          <Nav name={userName} onNameChange={this.onChange}></Nav>
 
 
 
           <main className="form-signin">
-
-            {/* <Route path="/" exact component={Home}/> */}
-            {/* <Route path="/" exact component={() => <Home name={test} />} /> */}
             {menu}
 
-            {/* <Route path="/login" component={Login} onNameChange={this.onChange}/> */}
-
-            {/* <Route path="/login" component={() => <Login name={test} onNameChange={this.onChange} />} /> */}
             {loginView}
 
             {registerView}
-
-
-            {/* <Route path="/register" component={Register} /> */}
 
 
 
@@ -423,45 +394,3 @@ class App extends React.Component {
 export default App;
 
 
-
-
-
-// <main className="content p-3 mb-2 bg-dark">
-//       <h1 className="text-white text-uppercase text-center my-4">
-//         Complaint Manegment system
-
-//       </h1>
-
-//       <div className="row">
-//         <div className="col-md-6 col-sma-10 mx-auto  p-0">
-//           <div className="card p-3">
-//             <div>
-//               <button onClick={this.createItem} className="btn btn-primary">
-//                 Add Ticket
-//               </button>
-//             </div>
-//             {this.renderTabList()}
-//             <ul className="list-group list-group-flush">
-//               {this.renderItems()}
-
-//             </ul>
-
-//           </div>
-
-//         </div>
-
-//       </div>
-//       <footer className="my-5 mb-3 bg-light text-dark text-center">
-//         &copy; 2021 Copyrights
-
-//       </footer>
-
-//       {this.state.modal ? (
-//           <Modal
-//             activeItem={this.state.activeItem}
-//             toggle={this.toggle}
-//             onSave={this.handleSubmit}
-//           />
-//         ) : null}
-
-//     </main>

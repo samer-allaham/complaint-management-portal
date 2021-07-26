@@ -1,2 +1,3 @@
 .vscode/
 backend/backend/.env
+frontend/node_modules
