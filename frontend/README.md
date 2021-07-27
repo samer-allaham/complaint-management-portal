@@ -1,3 +1,14 @@
+# Complaint Management Portal-Frontend
+
+
+## Overview  
+Frontend for the Complaint Management Portal
+---
+
+## Deployed link
+- [Frontend deployed on Vercel](https://complaint-management-portal.vercel.app/)
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

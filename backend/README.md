@@ -1,9 +1,13 @@
-# Complaint Management Portal
+# Complaint Management Portal-Backend
 
 
 ## Overview  
 Backend for the Complaint Management Portal, using ElephantSQL as a DataBase and Docker container
 ---
+
+## Deployed link
+- [Backend deployed on Heroku](https://cmpbackend.herokuapp.com/)
+
 
 ## Paths
 - /api/tasks
@@ -54,6 +58,3 @@ This project is under the MIT License.
 - ENGINE
 - PROJECT_PATH
 - SECRET_KEY
-
-# Deployed links
-- [Backend](https://cmpbackend.herokuapp.com/)

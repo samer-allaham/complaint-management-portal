@@ -5,6 +5,11 @@
 A complaint management portal that gives the ability for users to register, login, send a complaint and check the status of the complaint Using React and django
 ---
 
+## Deployed links
+
+- [Backend deployed on Heroku](https://cmpbackend.herokuapp.com/)
+- [Frontend deployed on Vercel](https://complaint-management-portal.vercel.app/)
+
 
 ## Dependencies  
 - Backend:
@@ -53,7 +58,3 @@ This project is under the MIT License.
 ## Version History  
 - 1.0.0
 
-# Deployed links
-
-- [Backend](https://cmpbackend.herokuapp.com/)
-- [Frontend](https://complaint-management-portal.vercel.app/)
