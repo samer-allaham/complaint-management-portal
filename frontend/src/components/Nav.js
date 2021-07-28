@@ -21,15 +21,15 @@ const Nav = (props) => {
         menu = (
 
 
-            <div class="collapse navbar-collapse" id="navbarText">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <Link class="nav-link active" aria-current="page" to="/">Home</Link>
+            <div className="collapse navbar-collapse" id="navbarText">
+                <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li className="nav-item">
+                        <Link className="nav-link active" aria-current="page" to="/">Home</Link>
                     </li>
-                    <li class="nav-item">
+                    <li className="nav-item">
                         <Link className="nav-link active" aria-current="page" to="/login">Login</Link>
                     </li>
-                    <li class="nav-item">
+                    <li className="nav-item">
                         <Link className="nav-link active" aria-current="page" to="/register">Register</Link>
                     </li>
                 </ul>
@@ -41,13 +41,13 @@ const Nav = (props) => {
         menu = (
 
 
-            <div class="collapse navbar-collapse" id="navbarText">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
+            <div className="collapse navbar-collapse" id="navbarText">
+                <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li className="nav-item">
                         <Link className="nav-link active" aria-current="page" to="/login" onClick={logout}>Logout</Link>
                     </li>
                 </ul>
-                <span class="navbar-text text-dark h5">
+                <span className="navbar-text text-dark h5">
                     Hi there {props.name}
                 </span>
             </div>
@@ -58,11 +58,11 @@ const Nav = (props) => {
     return (
         <div>
 
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="container-fluid">
-                    <Link class="navbar-brand" to="/">Complaint Manegment system</Link>
+            <nav className="navbar navbar-expand-lg navbar-light bg-light">
+                <div className="container-fluid">
+                    <Link className="navbar-brand" to="/">Complaint Manegment system</Link>
                     <button
-                        class="navbar-toggler"
+                        className="navbar-toggler"
                         type="button"
                         data-mdb-toggle="collapse"
                         data-mdb-target="#navbarText"
@@ -70,7 +70,7 @@ const Nav = (props) => {
                         aria-expanded="false"
                         aria-label="Toggle navigation"
                     >
-                        <i class="fas fa-bars"></i>
+                        <li className="fas fa-bars"></li>
                     </button>
                     {menu}
                 </div>

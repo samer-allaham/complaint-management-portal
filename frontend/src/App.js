@@ -22,6 +22,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      modal:false,
       loggedIn: false,
       user: '',
       status: 0,
