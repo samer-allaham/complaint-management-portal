@@ -11,6 +11,7 @@ A complaint management portal that gives the ability for users to register, logi
 - [Frontend deployed on Vercel](https://complaint-management-portal.vercel.app/)
 
 
+
 ## Dependencies  
 - Backend:
 python = "3.9"

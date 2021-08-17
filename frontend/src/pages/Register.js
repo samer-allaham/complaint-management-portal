@@ -11,7 +11,7 @@ const Register = () => {
         e.preventDefault();
         
 
-        await fetch('https://cmpbackend.herokuapp.com/api/auth/register/',{
+        await fetch('/api/auth/register/',{
             method:'POST',
             headers:{'Content-Type':'application/json'},
             body:JSON.stringify({

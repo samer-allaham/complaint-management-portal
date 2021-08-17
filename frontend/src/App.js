@@ -44,7 +44,7 @@ class App extends React.Component {
   checkLoginStatus() {
 
     axios
-      .get('https://cmpbackend.herokuapp.com/api/auth/user/', { withCredentials: true })
+      .get('/api/auth/user/', { withCredentials: true })
       .then(res => {
 
         if (res.data.name) {
@@ -84,7 +84,7 @@ class App extends React.Component {
   // refreshing the list of tasks
   refreshList = () => {
     axios
-      .get('https://cmpbackend.herokuapp.com/api/tasks/')
+      .get('/api/tasks/')
       .then(res => {
         this.setState({ taskList: res.data })
 
@@ -219,20 +219,20 @@ class App extends React.Component {
     // if it exists update it
     if (item.id) {
       axios
-        .put(`https://cmpbackend.herokuapp.com/api/tasks/${item.id}/`, item)
+        .put(`/api/tasks/${item.id}/`, item)
         .then(res => this.refreshList())
       return;
     }
     // if not create a new one
     axios
-      .post("https://cmpbackend.herokuapp.com/api/tasks/", item)
+      .post("/api/tasks/", item)
       .then(res => this.refreshList())
   }
 
   // deleteing a ticket or task
   handleDelete = item => {
     axios
-      .delete(`https://cmpbackend.herokuapp.com/api/tasks/${item.id}/`)
+      .delete(`/api/tasks/${item.id}/`)
       .then(res => this.refreshList())
   }
 

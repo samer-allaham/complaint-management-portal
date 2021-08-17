@@ -6,7 +6,7 @@ const Nav = (props) => {
     // logout and delete token from cookies
 
     const logout = async () => {
-        await fetch('https://cmpbackend.herokuapp.com/api/auth/logout/', {
+        await fetch('/api/auth/logout/', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             SameSite: 'Strict',

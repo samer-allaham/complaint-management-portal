@@ -12,6 +12,7 @@ whitenoise = "*"
 django-environ = "*"
 psycopg2-binary = "*"
 django-samesite-none = "*"
+pyjwt = "*"
 
 [dev-packages]
 
