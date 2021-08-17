@@ -12,8 +12,6 @@ import { BrowserRouter, Route } from
   'react-router-dom'
 
 
-
-
 class App extends React.Component {
 
 
@@ -44,7 +42,7 @@ class App extends React.Component {
   checkLoginStatus() {
 
     axios
-      .get('/api/auth/user/', { withCredentials: true })
+      .get('https://cmpbackend.herokuapp.com/api/auth/user/', { withCredentials: true })
       .then(res => {
 
         if (res.data.name) {
@@ -84,7 +82,7 @@ class App extends React.Component {
   // refreshing the list of tasks
   refreshList = () => {
     axios
-      .get('/api/tasks/')
+      .get('https://cmpbackend.herokuapp.com/api/tasks/')
       .then(res => {
         this.setState({ taskList: res.data })
 
@@ -219,20 +217,20 @@ class App extends React.Component {
     // if it exists update it
     if (item.id) {
       axios
-        .put(`/api/tasks/${item.id}/`, item)
+        .put(`https://cmpbackend.herokuapp.com/api/tasks/${item.id}/`, item)
         .then(res => this.refreshList())
       return;
     }
     // if not create a new one
     axios
-      .post("/api/tasks/", item)
+      .post("https://cmpbackend.herokuapp.com/api/tasks/", item)
       .then(res => this.refreshList())
   }
 
   // deleteing a ticket or task
   handleDelete = item => {
     axios
-      .delete(`/api/tasks/${item.id}/`)
+      .delete(`https://cmpbackend.herokuapp.com/api/tasks/${item.id}/`)
       .then(res => this.refreshList())
   }
 
